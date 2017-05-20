@@ -1,0 +1,12 @@
+bin/
+target/
+.settings/
+
+.classpath
+.project
+*.launch
+
+.idea/
+*.iws
+*.iml
+*.ipr
