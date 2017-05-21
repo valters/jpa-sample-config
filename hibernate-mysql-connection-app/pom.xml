@@ -18,6 +18,10 @@
     <description>Hibernate+MySQL Connection Example 2017</description>
 
     <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -26,7 +30,7 @@
 
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
 
         <dependency>

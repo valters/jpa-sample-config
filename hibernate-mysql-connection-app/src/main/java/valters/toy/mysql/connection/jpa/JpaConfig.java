@@ -6,8 +6,8 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
@@ -21,22 +21,24 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableTransactionManagement
 public class JpaConfig {
 
-    private String url = "local";
+    private String url = "jdbc:mysql://127.0.0.1:3306/valters-test?autoReconnect=true";
 	private String username = "valters";
 	private String password = "testing";
 
 	@Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(dataSource());
+        emf.setPersistenceXmlLocation("classpath:META-INF/persistence-mysql.xml");
+        emf.setPersistenceUnitName("ValtersTest");
+//        sessionFactory.setHibernateProperties(hibernateProperties());
+        return emf;
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager txManager = new HibernateTransactionManager();
-        txManager.setSessionFactory(sessionFactory().getObject());
+    public JpaTransactionManager transactionManager() {
+    	JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
 
         return txManager;
     }
@@ -49,16 +51,21 @@ public class JpaConfig {
         ds.addDataSourceProperty("url", url);
         ds.addDataSourceProperty("user", username);
         ds.addDataSourceProperty("password", password);
+
         ds.addDataSourceProperty("cachePrepStmts", true);
         ds.addDataSourceProperty("prepStmtCacheSize", 250);
         ds.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
         ds.addDataSourceProperty("useServerPrepStmts", true);
+
+        ds.addDataSourceProperty("dumpQueriesOnException", true);
+        ds.addDataSourceProperty("logSlowQueries", true);
         return ds;
     }
 
     private Properties hibernateProperties() {
         final Properties properties = new Properties();
 //        ... (Dialect, 2nd level entity cache, query cache, etc.)
+        properties.setProperty( "hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect" );
         return properties;
     }
 
