@@ -20,8 +20,9 @@
         <spring.version>4.3.14.RELEASE</spring.version>
 
         <!-- db -->
-        <hibernate.version>5.2.12.Final</hibernate.version>
         <hikaricp.version>2.7.6</hikaricp.version>
+        <hibernate.version>5.2.12.Final</hibernate.version>
+        <openjpa.version>2.4.2</openjpa.version>
 
         <!-- manage tooling versions -->
         <checkstyle-version>8.8</checkstyle-version>
@@ -52,6 +53,12 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa</artifactId>
+                <version>${openjpa.version}</version>
             </dependency>
 
             <dependency>
@@ -359,6 +366,7 @@
     <modules>
         <module>build-tools/checkstyle</module>
         <module>hibernate-mysql-connection-app</module>
+        <module>openjpa-postgres-connection-app</module>
     </modules>
 
 </project>
