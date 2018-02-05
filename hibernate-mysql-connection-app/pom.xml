@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>valters.toy.mysql-connection.build</groupId>
+        <groupId>valters.toy.jpa-connection.build</groupId>
         <artifactId>master-pom</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>valters.toy.mysql-connection</groupId>
+    <groupId>valters.toy.jpa-connection</groupId>
     <artifactId>hibernate-mysql-connection-app</artifactId>
     <packaging>war</packaging>
 
