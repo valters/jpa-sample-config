@@ -25,7 +25,7 @@ public class AfterInit {
         final Query query = entityManager.createNativeQuery("select * from test_table");
 
         @SuppressWarnings("unchecked")
-        final List<String> res = query.getResultList();
+        final List<Object> res = query.getResultList();
 
         System.out.println("got results: " + res.size());
         System.out.println(" . returned: [" + String.valueOf(res.get(0)) + "]");
@@ -41,12 +41,9 @@ public class AfterInit {
     }
 
     @Transactional
-    public void save(final Sample s) {
-        entityManager.persist(s);
+    public void save(final Sample obj) {
+        entityManager.merge(obj);
     }
 
-    public void flush() {
-        entityManager.flush();
-    }
 
 }
