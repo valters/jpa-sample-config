@@ -11,28 +11,12 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class JdbcConfigImpl implements JdbConfig {
 
-    private final String serverName = "(server).rds.amazonaws.com";
-    private final String databaseName = "valters_database";
-    private final String portNumber = "5432";
+    private final String jdbcUrl = "jdbc:postgresql://(server).rds.amazonaws.com:5432/(db-name)";
 
     private final String username = "valters_test";
 
     private final String password = "(password)";
 
-    @Override
-    public String getServerName() {
-        return serverName;
-    }
-
-    @Override
-    public String getDatabaseName() {
-        return databaseName;
-    }
-
-    @Override
-    public String getPortNumber() {
-        return portNumber;
-    }
 
     @Override
     public String getUsername() {
@@ -42,5 +26,10 @@ public class JdbcConfigImpl implements JdbConfig {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getJdbcUrl() {
+        return jdbcUrl;
     }
 }

@@ -4,14 +4,16 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @ApplicationScoped
+@Named("afterInit")
 public class AfterInit {
 
-    @PersistenceContext
+    @Inject
     private EntityManager entityManager;
 
     @PostConstruct
@@ -25,6 +27,11 @@ public class AfterInit {
 
         System.out.println("got results: " + res.size());
         System.out.println(" . returned: [" + String.valueOf(res.get(0)) + "]");
+    }
+
+    @Override
+    public String toString() {
+        return "AfterInit [entityManager=" + entityManager + "]";
     }
 
 }

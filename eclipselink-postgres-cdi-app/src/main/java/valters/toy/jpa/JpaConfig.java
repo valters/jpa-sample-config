@@ -1,6 +1,14 @@
 package valters.toy.jpa;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import valters.toy.jpa.postgres.JdbConfig;
 
@@ -9,10 +17,30 @@ import valters.toy.jpa.postgres.JdbConfig;
  *
  * @author Valters Vingolds
  */
+@ApplicationScoped
 public class JpaConfig {
 
     @Inject
     private JdbConfig jdbc;
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Produces
+    EntityManager entityManager() {
+
+        final Map properties = new HashMap();
+
+        properties.put("javax.persistence.target-database","PostgreSQL");
+        properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+        properties.put("javax.persistence.jdbc.url", jdbc.getJdbcUrl());
+        properties.put("javax.persistence.jdbc.user", jdbc.getUsername());
+        properties.put("javax.persistence.jdbc.password", jdbc.getPassword());
+
+        final EntityManagerFactory factory = Persistence.createEntityManagerFactory("ValtersTest", properties);
+
+        final EntityManager em = factory.createEntityManager();
+        System.out.println("produced: " + em);
+        return em;
+    }
 
 //    @Bean
 //    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -38,28 +66,5 @@ public class JpaConfig {
 //        return adapter;
 //    }
 //
-//    @Bean
-//    public JpaTransactionManager transactionManager(final EntityManagerFactory emf) {
-//        return new JpaTransactionManager(emf);
-//    }
-//
-//    @Bean(destroyMethod = "close")
-//    DataSource dataSource() {
-//        final HikariDataSource ds = new HikariDataSource();
-//
-//        ds.setMaximumPoolSize(5); // TODO: change this for production
-//
-//        ds.setDataSourceClassName("org.postgresql.ds.PGSimpleDataSource");
-//        ds.addDataSourceProperty("serverName", jdbc.serverName);
-//        ds.addDataSourceProperty("databaseName", jdbc.databaseName);
-//        System.out.println("jdbc:" + jdbc.serverName + "/" + jdbc.databaseName);
-//        ds.addDataSourceProperty("user", jdbc.username);
-//        ds.addDataSourceProperty("password", jdbc.password);
-//
-//        ds.addDataSourceProperty("prepareThreshold", "1");
-//        ds.addDataSourceProperty("assumeMinServerVersion", "9.6");
-//
-//        return ds;
-//    }
 
 }
