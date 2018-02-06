@@ -29,4 +29,5 @@ public class AfterInit {
         System.out.println( " . returned: [" + String.valueOf( res.get( 0 ) ) + "]" );
     }
 
+
 }

@@ -1,5 +1,6 @@
 package valters.toy.postgres.connection.jpa;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,8 @@ public class JpaConfig {
     }
 
     @Bean
-    public JpaTransactionManager transactionManager() {
-        final JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
-
-        return txManager;
+    public JpaTransactionManager transactionManager(final EntityManagerFactory emf) {
+        return new JpaTransactionManager(emf);
     }
 
     @Bean(destroyMethod = "close")
