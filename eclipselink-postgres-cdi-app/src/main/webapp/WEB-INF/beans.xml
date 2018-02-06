@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+        version="1.2"
+        bean-discovery-mode="annotated">
+    <!--
+     We ask CDI to manage beans ONLY when annotated. JSR-330 allows CDI container
+     to scan all classes and could manage a non-annotated bean as well: we don't want that.
+
+     Beans must be explicitly annotated with @Named, @Dependent, @ApplicationScoped, ..., etc
+     to be picked up by our CDI context. -->
+
+</beans>
