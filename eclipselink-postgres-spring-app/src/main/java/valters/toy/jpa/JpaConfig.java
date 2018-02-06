@@ -1,10 +1,11 @@
-package valters.toy.postgres.connection.jpa;
+package valters.toy.jpa;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.orm.jpa.JpaDialect;
@@ -17,12 +18,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
 
+import valters.toy.jpa.postgres.JdbcConfig;
+
 /**
  * Sample Postgres DataSource configuration with HikariCP and Spring.
  *
  * @author Valters Vingolds
  */
 @Configuration
+@ComponentScan("valters.toy.jpa")
 @EnableTransactionManagement
 @Import(JdbcConfig.class)
 public class JpaConfig {

@@ -1,4 +1,4 @@
-package valters.toy.postgres.connection.jpa;
+package valters.toy.jpa.postgres;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

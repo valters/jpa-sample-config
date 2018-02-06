@@ -19,10 +19,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import valters.toy.jpa.JpaConfig;
 import valters.toy.jpa.entity.Sample;
+import valters.toy.jpa.postgres.JpaShowcase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:META-INF/spring/jpa-beans.xml")
+@ContextConfiguration(classes=JpaConfig.class)
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class QueriesIT {

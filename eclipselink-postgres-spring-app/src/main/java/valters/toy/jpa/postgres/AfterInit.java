@@ -1,4 +1,4 @@
-package valters.toy.postgres.connection.jpa;
+package valters.toy.jpa.postgres;
 
 import java.util.List;
 

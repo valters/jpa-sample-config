@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.transaction.annotation.Transactional;
 
-@ContextConfiguration("classpath:META-INF/spring/jpa-beans.xml")
+import valters.toy.jpa.JpaConfig;
+
+@ContextConfiguration(classes=JpaConfig.class)
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AfterInitIT {
