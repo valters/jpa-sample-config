@@ -17,17 +17,15 @@ public class AfterInit {
 
     @PostConstruct
     public void checkTables() {
-        System.out.println( "************* checking tables!" );
+        System.out.println("************* checking tables!");
 
-        final Query query = entityManager.createNativeQuery( "select * from test_table" );
+        final Query query = entityManager.createNativeQuery("select * from test_table");
 
         @SuppressWarnings("unchecked")
-        final
-        List<String> res = query.getResultList();
+        final List<String> res = query.getResultList();
 
-        System.out.println( "got results: " + res.size() );
-        System.out.println( " . returned: [" + String.valueOf( res.get( 0 ) ) + "]" );
+        System.out.println("got results: " + res.size());
+        System.out.println(" . returned: [" + String.valueOf(res.get(0)) + "]");
     }
-
 
 }

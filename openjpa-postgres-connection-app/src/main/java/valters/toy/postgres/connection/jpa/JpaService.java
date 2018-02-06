@@ -17,7 +17,7 @@ public class JpaService implements JpaShowcase {
     private EntityManager entityManager;
 
     @Override
-    @Transactional(propagation=Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS)
     public Sample loadSample(final long id) {
 
         final Query query = entityManager.createQuery("SELECT e FROM Sample e WHERE e.id = :id");
@@ -34,7 +34,7 @@ public class JpaService implements JpaShowcase {
     }
 
     @Override
-    @Transactional(propagation=Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public int updateItem() {
         final Query query = entityManager.createNativeQuery("update test_table set info='what do you know' where id = 1");
 

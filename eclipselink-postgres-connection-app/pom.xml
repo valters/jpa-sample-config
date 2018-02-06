@@ -16,6 +16,24 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <description>EclipseLink+Postgres Connection Example 2018</description>
 
+    <properties>
+
+        <eclipselink.version>2.7.1</eclipselink.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>org.eclipse.persistence.jpa</artifactId>
+                <version>${eclipselink.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -85,29 +103,29 @@
 
 
             <plugin>
-               <groupId>de.empulse.eclipselink</groupId>
-               <artifactId>staticweave-maven-plugin</artifactId>
-               <version>1.0.0</version>
-               <executions>
-                   <execution>
-                       <phase>process-classes</phase>
-                       <goals>
-                           <goal>weave</goal>
-                       </goals>
-                       <configuration>
-                           <persistenceXMLLocation>META-INF/persistence-postgres.xml</persistenceXMLLocation>
-                           <logLevel>FINE</logLevel>
-                       </configuration>
-                   </execution>
-               </executions>
-               <dependencies>
-                   <dependency>
-                       <groupId>org.eclipse.persistence</groupId>
-                       <artifactId>org.eclipse.persistence.jpa</artifactId>
-                       <version>${eclipselink.version}</version>
-                   </dependency>
-               </dependencies>
-           </plugin>
+                <groupId>de.empulse.eclipselink</groupId>
+                <artifactId>staticweave-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>weave</goal>
+                        </goals>
+                        <configuration>
+                            <persistenceXMLLocation>META-INF/persistence-postgres.xml</persistenceXMLLocation>
+                            <logLevel>FINE</logLevel>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.eclipse.persistence</groupId>
+                        <artifactId>org.eclipse.persistence.jpa</artifactId>
+                        <version>${eclipselink.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
 
 

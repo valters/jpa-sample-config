@@ -20,9 +20,6 @@
 
         <!-- db -->
         <hikaricp.version>2.7.6</hikaricp.version>
-        <hibernate.version>5.2.12.Final</hibernate.version>
-        <openjpa.version>2.4.2</openjpa.version>
-        <eclipselink.version>2.7.1</eclipselink.version>
 
         <!-- manage tooling versions -->
         <checkstyle-version>8.8</checkstyle-version>
@@ -49,26 +46,6 @@
                 <artifactId>postgresql</artifactId>
                 <version>42.2.1</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>org.eclipse.persistence.jpa</artifactId>
-                <version>${eclipselink.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.openjpa</groupId>
-                <artifactId>openjpa</artifactId>
-                <version>${openjpa.version}</version>
-                <!-- openjpa so far only supports JPA 2.0 -->
-            </dependency>
-
 
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -399,6 +376,7 @@
 
     <modules>
         <module>build-tools/checkstyle</module>
+        <module>eclipselink-postgres-connection-app</module>
         <module>hibernate-mysql-connection-app</module>
         <module>openjpa-postgres-connection-app</module>
     </modules>

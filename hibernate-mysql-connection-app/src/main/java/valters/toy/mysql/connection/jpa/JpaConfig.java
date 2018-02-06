@@ -1,5 +1,6 @@
 package valters.toy.mysql.connection.jpa;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,38 +29,37 @@ public class JpaConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        emf.setDataSource( dataSource() );
-        emf.setPersistenceXmlLocation( "classpath:META-INF/persistence-mysql.xml" );
-        emf.setPersistenceUnitName( "ValtersTest" );
+        emf.setDataSource(dataSource());
+        emf.setPersistenceXmlLocation("classpath:META-INF/persistence-mysql.xml");
+        emf.setPersistenceUnitName("ValtersTest");
 
         return emf;
     }
 
     @Bean
-    public JpaTransactionManager transactionManager() {
-        final JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory( entityManagerFactory().getNativeEntityManagerFactory() );
-
-        return txManager;
+    public JpaTransactionManager transactionManager(final EntityManagerFactory emf) {
+        return new JpaTransactionManager(emf);
     }
 
     @Bean(destroyMethod = "close")
     DataSource dataSource() {
         final HikariDataSource ds = new HikariDataSource();
-        ds.setMaximumPoolSize( 100 );
-        ds.setDataSourceClassName( "com.mysql.jdbc.jdbc2.optional.MysqlDataSource" );
-        ds.addDataSourceProperty( "url", jdbc.url );
-        System.out.println( "jdbc:" + jdbc.url );
-        ds.addDataSourceProperty( "user", jdbc.username );
-        ds.addDataSourceProperty( "password", jdbc.password );
 
-        ds.addDataSourceProperty( "cachePrepStmts", true );
-        ds.addDataSourceProperty( "prepStmtCacheSize", 250 );
-        ds.addDataSourceProperty( "prepStmtCacheSqlLimit", 2048 );
-        ds.addDataSourceProperty( "useServerPrepStmts", true );
+        ds.setMaximumPoolSize(5); // TODO: change this for production
 
-        ds.addDataSourceProperty( "dumpQueriesOnException", true );
-        ds.addDataSourceProperty( "logSlowQueries", true );
+        ds.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+        ds.addDataSourceProperty("url", jdbc.url);
+        System.out.println("jdbc:" + jdbc.url);
+        ds.addDataSourceProperty("user", jdbc.username);
+        ds.addDataSourceProperty("password", jdbc.password);
+
+        ds.addDataSourceProperty("cachePrepStmts", true);
+        ds.addDataSourceProperty("prepStmtCacheSize", 250);
+        ds.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+        ds.addDataSourceProperty("useServerPrepStmts", true);
+
+        ds.addDataSourceProperty("dumpQueriesOnException", true);
+        ds.addDataSourceProperty("logSlowQueries", true);
 
         return ds;
     }

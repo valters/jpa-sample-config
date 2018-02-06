@@ -16,6 +16,32 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <description>OpenJpa+Postgres Connection Example 2018</description>
 
+    <properties>
+
+        <!-- openjpa so far only supports JPA 2.0 -->
+        <openjpa.version>2.4.2</openjpa.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa</artifactId>
+                <version>${openjpa.version}</version>
+            </dependency>
+
+            <!-- JPA interfaces -->
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>javax.persistence</artifactId>
+                <version>2.0.5</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
     <dependencies>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -30,9 +56,6 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>javax.persistence</artifactId>
-            <version>2.0.5</version>
-            <!-- openjpa so far only supports JPA 2.0 -->
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
