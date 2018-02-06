@@ -1,15 +1,13 @@
 package valters.toy.postgres.connection.jpa;
 
-import valters.toy.postgres.entity.Sample;
+import valters.toy.jpa.entity.Sample;
 
 public interface JpaShowcase {
 
-    void checkTables();
-
     Sample loadSample(long id);
 
-    void save(Sample obj);
+    Sample save(Sample obj);
 
-    void updateItem();
+    int updateItem();
 
 }

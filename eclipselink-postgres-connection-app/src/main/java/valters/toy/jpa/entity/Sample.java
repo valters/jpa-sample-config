@@ -1,4 +1,4 @@
-package valters.toy.postgres.entity;
+package valters.toy.jpa.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -4,7 +4,7 @@
     <persistence-unit name="ValtersTest" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>valters.toy.postgres.entity.Sample</class>
+        <class>valters.toy.jpa.entity.Sample</class>
 
         <properties>
             <property name="eclipselink.weaving" value="false" />
