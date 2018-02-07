@@ -1,5 +1,12 @@
 package valters.toy.jpa.postgres;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.InputStream;
+import java.util.Optional;
+import java.util.Properties;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
@@ -11,12 +18,34 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class JdbcConfigImpl implements JdbConfig {
 
-    private final String jdbcUrl = "jdbc:postgresql://(server).rds.amazonaws.com:5432/(db-name)";
+    private static final String CREDENTIALS_PROPERTIES = "jdbc-credentials.properties";
 
-    private final String username = "valters_test";
+    @PostConstruct
+    void loadProperties() throws Exception {
 
-    private final String password = "(password)";
+        try(InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(CREDENTIALS_PROPERTIES)) {
 
+            requireNonNull(is, "Error, failed to load credentials from [" + CREDENTIALS_PROPERTIES + "] on classpath");
+
+            final Properties p = new Properties();
+            p.load(is);
+            jdbcUrl = mandatoryProperty(p, "jdbc.url");
+            username = p.getProperty("jdbc.username");
+            password = p.getProperty("jdbc.password");
+        }
+    }
+
+    protected String mandatoryProperty(final Properties p, final String propName) {
+
+        return Optional.ofNullable(p.getProperty(propName)).orElseThrow(
+                () -> new RuntimeException("Error, failed to read property [" + propName + "] from credentials config [" + CREDENTIALS_PROPERTIES + "]"));
+    }
+
+    private String jdbcUrl = "";
+
+    private String username = "";
+
+    private String password = "";
 
     @Override
     public String getUsername() {

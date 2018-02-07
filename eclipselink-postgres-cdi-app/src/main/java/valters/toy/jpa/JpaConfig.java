@@ -42,29 +42,4 @@ public class JpaConfig {
         return em;
     }
 
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-//        final LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-//        emf.setDataSource(dataSource());
-//        emf.setJpaDialect(dialect());
-//        emf.setJpaVendorAdapter(eclipseLink());
-//        emf.setPersistenceXmlLocation("classpath:META-INF/persistence-postgres.xml");
-//        emf.setPersistenceUnitName("ValtersTest");
-//
-//        return emf;
-//    }
-//
-//    private JpaDialect dialect() {
-//        final EclipseLinkJpaDialect dialect = new EclipseLinkJpaDialect();
-//        dialect.setLazyDatabaseTransaction(true); // required by Spring to use shared cache
-//        return dialect;
-//    }
-//
-//    private JpaVendorAdapter eclipseLink() {
-//        final EclipseLinkJpaVendorAdapter adapter = new EclipseLinkJpaVendorAdapter();
-//        adapter.setDatabasePlatform("org.eclipse.persistence.platform.database.PostgreSQLPlatform");
-//        return adapter;
-//    }
-//
-
 }
