@@ -40,12 +40,6 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.transaction</groupId>
-                <artifactId>javax.transaction-api</artifactId>
-                <version>1.2</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.jboss.weld.servlet</groupId>
                 <artifactId>weld-servlet</artifactId>
                 <version>${weld.version}</version>
