@@ -23,7 +23,7 @@ public class JdbcConfigImpl implements JdbcConfig {
     private static final String CREDENTIALS_PROPERTIES = "jdbc-credentials.properties";
 
     @PostConstruct
-    void loadProperties() throws Exception {
+    void loadProperties() {
 
         try(InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(CREDENTIALS_PROPERTIES)) {
 
@@ -34,6 +34,9 @@ public class JdbcConfigImpl implements JdbcConfig {
             jdbcUrl = mandatoryProperty(p, "jdbc.url");
             username = mandatoryProperty(p, "jdbc.username");
             password = mandatoryProperty(p, "jdbc.password");
+        }
+        catch(final Exception e) {
+            throw new RuntimeException("Error, failed to load [" + CREDENTIALS_PROPERTIES + "]: " + e.toString(), e);
         }
     }
 

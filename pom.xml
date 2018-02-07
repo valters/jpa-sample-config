@@ -18,6 +18,8 @@
 
         <spring.version>4.3.14.RELEASE</spring.version>
 
+        <jetty.version>9.4.7.v20170914</jetty.version>
+
         <!-- db -->
         <hikaricp.version>2.7.6</hikaricp.version>
 
@@ -195,7 +197,7 @@
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
-                    <version>9.4.7.v20170914</version>
+                    <version>${jetty.version}</version>
                 </plugin>
 
             </plugins>

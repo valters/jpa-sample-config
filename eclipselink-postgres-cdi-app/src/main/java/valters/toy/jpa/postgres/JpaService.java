@@ -36,6 +36,18 @@ public class JpaService implements JpaShowcase {
     }
 
     @Override
+    public Sample create(final Sample obj) {
+
+        entityManager.getTransaction().begin();
+
+        entityManager.persist(obj);
+
+        entityManager.getTransaction().commit();
+
+        return obj;
+    }
+
+    @Override
     public int updateItem() {
 
         entityManager.getTransaction().begin();

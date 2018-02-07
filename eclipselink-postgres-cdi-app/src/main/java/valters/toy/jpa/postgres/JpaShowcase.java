@@ -8,6 +8,8 @@ public interface JpaShowcase {
 
     Sample save(Sample obj);
 
+    Sample create(Sample obj);
+
     int updateItem();
 
 }
