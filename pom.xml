@@ -177,6 +177,12 @@
                 </plugin>
 
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>2.9</version>
@@ -317,9 +323,9 @@
                 </dependencies>
                 <executions>
                     <execution>
-                        <id>validate</id>
-                        <!-- runs on 'mvn verify' -->
-                        <phase>verify</phase>
+                        <id>style-audit</id>
+                        <!-- runs on 'mvn test' -->
+                        <phase>test</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -333,6 +339,10 @@
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
                             <linkXRef>false</linkXRef>
+
+                            <!-- don't check the code-generated metamodel classes -->
+                            <excludes>**/entity/*_.java</excludes>
+
                         </configuration>
                     </execution>
                 </executions>
@@ -348,6 +358,9 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <configLocation>valters/checkstyle-config.xml</configLocation>
+
+                    <!-- don't check the code-generated metamodel classes -->
+                    <excludes>**/entity/*_.java</excludes>
                 </configuration>
             </plugin>
         </plugins>
