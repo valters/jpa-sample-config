@@ -9,6 +9,8 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 
+import valters.toy.jpa.JdbcConfig;
+
 /**
  * Handles reading sensitive jdbc properties securely.
  * (Main objective is to keep the jdbc production database password a secret.)

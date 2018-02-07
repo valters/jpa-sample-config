@@ -1,4 +1,4 @@
-package valters.toy.jpa.postgres;
+package valters.toy.jpa;
 
 public interface JdbcConfig {
 
