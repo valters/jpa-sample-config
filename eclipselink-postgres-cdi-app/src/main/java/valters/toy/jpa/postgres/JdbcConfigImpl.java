@@ -16,7 +16,7 @@ import javax.enterprise.context.ApplicationScoped;
  * @author Valters Vingolds
  */
 @ApplicationScoped
-public class JdbcConfigImpl implements JdbConfig {
+public class JdbcConfigImpl implements JdbcConfig {
 
     private static final String CREDENTIALS_PROPERTIES = "jdbc-credentials.properties";
 
@@ -30,8 +30,8 @@ public class JdbcConfigImpl implements JdbConfig {
             final Properties p = new Properties();
             p.load(is);
             jdbcUrl = mandatoryProperty(p, "jdbc.url");
-            username = p.getProperty("jdbc.username");
-            password = p.getProperty("jdbc.password");
+            username = mandatoryProperty(p, "jdbc.username");
+            password = mandatoryProperty(p, "jdbc.password");
         }
     }
 

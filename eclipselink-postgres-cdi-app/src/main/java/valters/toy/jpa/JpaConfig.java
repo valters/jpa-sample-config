@@ -10,10 +10,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import valters.toy.jpa.postgres.JdbConfig;
+import valters.toy.jpa.postgres.JdbcConfig;
 
 /**
- * Sample Postgres DataSource configuration with HikariCP and Spring.
+ * Sample Postgres DataSource configuration with CDI, and EclipseLink internal
+ * connection pooling. (Unfortunately no HikariCP yet).
  *
  * @author Valters Vingolds
  */
@@ -21,7 +22,7 @@ import valters.toy.jpa.postgres.JdbConfig;
 public class JpaConfig {
 
     @Inject
-    private JdbConfig jdbc;
+    private JdbcConfig jdbc;
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Produces

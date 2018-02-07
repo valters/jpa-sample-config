@@ -1,6 +1,6 @@
 package valters.toy.jpa.postgres;
 
-public interface JdbConfig {
+public interface JdbcConfig {
 
     String getJdbcUrl();
 
