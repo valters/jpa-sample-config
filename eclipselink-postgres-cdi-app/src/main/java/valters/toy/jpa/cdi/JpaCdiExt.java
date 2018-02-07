@@ -8,6 +8,11 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 
+import valters.toy.jpa.postgres.AfterInit;
+
+/**
+ * Performs Eager initialization of {@link AfterInit} bean.
+ */
 public class JpaCdiExt implements Extension {
 
     /** Hooks on event just after CDI has bootstrapped. */

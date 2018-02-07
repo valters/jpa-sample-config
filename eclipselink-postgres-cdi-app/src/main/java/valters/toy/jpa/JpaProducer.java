@@ -10,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Sample Postgres DataSource configuration with CDI, and EclipseLink internal
  * connection pooling. (Unfortunately no HikariCP yet).
@@ -19,25 +22,31 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class JpaProducer {
 
+    private static final Logger log = LoggerFactory.getLogger(JpaProducer.class);
+
     @Inject
     private JdbcConfig jdbc;
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Produces
-    EntityManager entityManager() {
-
+    private EntityManagerFactory entityManagerFactory() {
         final Map properties = new HashMap();
 
-        properties.put("javax.persistence.target-database","PostgreSQL");
+        properties.put("javax.persistence.target-database", "PostgreSQL");
         properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
         properties.put("javax.persistence.jdbc.url", jdbc.getJdbcUrl());
         properties.put("javax.persistence.jdbc.user", jdbc.getUsername());
         properties.put("javax.persistence.jdbc.password", jdbc.getPassword());
 
-        final EntityManagerFactory factory = Persistence.createEntityManagerFactory("ValtersTest", properties);
+        final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ValtersTest", properties);
+        log.info("factory produced: {}", emf);
+        return emf;
+    }
 
-        final EntityManager em = factory.createEntityManager();
-        System.out.println("produced: " + em);
+    @Produces
+    EntityManager entityManager() {
+
+        final EntityManager em = entityManagerFactory().createEntityManager();
+        log.info("produced: {}", em);
         return em;
     }
 

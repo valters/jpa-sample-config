@@ -40,9 +40,9 @@ public class JdbcConfigImpl implements JdbcConfig {
         }
     }
 
-    protected String mandatoryProperty(final Properties p, final String propName) {
+    protected String mandatoryProperty(final Properties props, final String propName) {
 
-        return Optional.ofNullable(p.getProperty(propName)).orElseThrow(
+        return Optional.ofNullable(props.getProperty(propName)).orElseThrow(
                 () -> new RuntimeException("Error, failed to read property [" + propName + "] from credentials config [" + CREDENTIALS_PROPERTIES + "]"));
     }
 

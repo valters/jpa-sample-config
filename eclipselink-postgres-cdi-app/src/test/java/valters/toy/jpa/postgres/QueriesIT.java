@@ -8,6 +8,11 @@ import static org.hamcrest.Matchers.startsWith;
 import java.io.File;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -22,9 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import valters.toy.jpa.JpaProducer;
 import valters.toy.jpa.entity.Sample;
-import valters.toy.jpa.postgres.JdbcConfigImpl;
-import valters.toy.jpa.postgres.JpaService;
-import valters.toy.jpa.postgres.JpaShowcase;
+import valters.toy.jpa.entity.Sample_;
 
 @RunWith(Arquillian.class)
 public class QueriesIT {
@@ -47,6 +50,9 @@ public class QueriesIT {
     }
 
     @Inject
+    private EntityManager em;
+
+    @Inject
     private JpaShowcase test;
 
     @Test
@@ -57,7 +63,7 @@ public class QueriesIT {
     @Test
     public void shouldModify() {
         final Sample s = test.loadSample(2);
-        System.out.println("loaded entry: " + s);
+        log.info("loaded entry: {}", s);
 
         s.setInfo("hello to you too, not too shabby actually!");
         final Sample s2 = test.save(s);
@@ -69,16 +75,28 @@ public class QueriesIT {
     @Test
     public void shouldCreate() {
 
+        final long next = em.createQuery(findMaxId()).getSingleResult() + 1;
+        log.info("next entry #: {}", next);
+
         final Sample s = new Sample();
-        s.setId(3L);
+        s.setId(next);
         s.setInfo("can commit");
 
         test.create(s);
 
-        final Sample s3 = test.loadSample(3);
-        System.out.println("loaded entry: " + s3);
+        final Sample s3 = test.loadSample(next);
+        log.info("loaded entry: {}", s3);
         assertThat(s3, notNullValue());
         assertThat(s3.getInfo(), startsWith("can "));
+    }
+
+    protected CriteriaQuery<Long> findMaxId() {
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<Long> findMax = cb.createQuery(Long.class);
+        final CriteriaQuery<Sample> q = cb.createQuery(Sample.class);
+        final Root<Sample> root = q.from(Sample.class);
+        findMax.select(cb.max(root.get(Sample_.id)));
+        return findMax;
     }
 
 }
