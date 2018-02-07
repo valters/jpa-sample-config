@@ -1,8 +1,8 @@
 package valters.toy.jpa.postgres;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import valters.toy.jpa.entity.Sample;
@@ -10,7 +10,7 @@ import valters.toy.jpa.entity.Sample;
 @ApplicationScoped
 public class JpaService implements JpaShowcase {
 
-    @PersistenceContext
+    @Inject
     private EntityManager entityManager;
 
     @Override
@@ -25,14 +25,28 @@ public class JpaService implements JpaShowcase {
 
     @Override
     public Sample save(final Sample obj) {
-        return entityManager.merge(obj);
+
+        entityManager.getTransaction().begin();
+
+        final Sample rv = entityManager.merge(obj);
+
+        entityManager.getTransaction().commit();
+
+        return rv;
     }
 
     @Override
     public int updateItem() {
+
+        entityManager.getTransaction().begin();
+
         final Query query = entityManager.createNativeQuery("update test_table set info='what do you know' where id = 1");
 
-        return query.executeUpdate();
+        final int rv = query.executeUpdate();
+
+        entityManager.getTransaction().commit();
+
+        return rv;
 
     }
 
