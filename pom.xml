@@ -392,9 +392,10 @@
 
     <modules>
         <module>build-tools/checkstyle</module>
+        <module>eclipselink-postgres-cdi-app</module>
         <module>eclipselink-postgres-spring-app</module>
-        <module>hibernate-mysql-connection-app</module>
         <module>openjpa-postgres-connection-app</module>
+        <module>hibernate-mysql-connection-app</module>
     </modules>
 
 </project>
